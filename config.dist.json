@@ -1,0 +1,15 @@
+{
+    "Twitter": {
+        "ConsumerKey": "",
+        "ConsumerSecret": "",
+        "AccessToken": "",
+        "AccessTokenSecret": "",
+        "UserIDs": {
+            "Pixel_Dailies": "",
+            "Sirikon": ""
+        }
+    },
+    "Slack": {
+        "APIToken": ""
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "robotnik",
+  "version": "0.0.1",
+  "description": "Slack Bot for Jams.es Slack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jams-es/robotnik.git"
+  },
+  "author": "Jams.es",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jams-es/robotnik/issues"
+  },
+  "homepage": "https://github.com/Jams-es/robotnik#readme",
+  "dependencies": {
+    "@slack/client": "^3.10.0",
+    "twitter": "^1.7.0"
+  }
+}

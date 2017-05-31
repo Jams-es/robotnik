@@ -10,6 +10,7 @@ const hostname = '0.0.0.0';
 const port = 8989;
 
 var restartCounter = 0
+var pingCounter = 0
 
 var configRaw = fs.readFileSync('./config.json')
 var config = JSON.parse(configRaw)
@@ -44,6 +45,15 @@ function listenStream() {
             console.log(error)
             restartCounter++
             listenStream()
+        })
+
+        stream.on('end', function() {
+            restartCounter++
+            listenStream()
+        })
+
+        stream.on('ping', function() {
+            pingCounter++
         })
     })
 }

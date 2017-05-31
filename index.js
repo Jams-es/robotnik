@@ -63,7 +63,7 @@ listenStream()
 const server = http.createServer((req, res) => {
     res.statusCode = 200
     res.setHeader('Content-Type', 'text/plain')
-    res.end(`Restarts: ${restartCounter}\n`)
+    res.end(`Restarts: ${restartCounter}\nPings: ${pingCounter}`)
 })
 
 server.listen(port, hostname, () => {

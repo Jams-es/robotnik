@@ -9,6 +9,8 @@ const SlackWebClient = SlackClient.WebClient
 const hostname = '0.0.0.0';
 const port = 8989;
 
+var restartCounter = 0
+
 var configRaw = fs.readFileSync('./config.json')
 var config = JSON.parse(configRaw)
 
@@ -40,6 +42,7 @@ function listenStream() {
 
         stream.on('error', function(error) {
             console.log(error)
+            restartCounter++
             listenStream()
         })
     })
@@ -50,7 +53,7 @@ listenStream()
 const server = http.createServer((req, res) => {
     res.statusCode = 200
     res.setHeader('Content-Type', 'text/plain')
-    res.end('Hello World\n')
+    res.end(`Restarts: ${restartCounter}\n`)
 })
 
 server.listen(port, hostname, () => {

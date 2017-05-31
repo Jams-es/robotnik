@@ -10,7 +10,7 @@ const hostname = '0.0.0.0';
 const port = 8989;
 
 var restartCounter = 0
-var pingCounter = 0
+var lastPing = null
 
 var configRaw = fs.readFileSync('./config.json')
 var config = JSON.parse(configRaw)
@@ -53,7 +53,7 @@ function listenStream() {
         })
 
         stream.on('ping', function() {
-            pingCounter++
+            lastPing = new Date()
         })
     })
 }
@@ -63,7 +63,7 @@ listenStream()
 const server = http.createServer((req, res) => {
     res.statusCode = 200
     res.setHeader('Content-Type', 'text/plain')
-    res.end(`Restarts: ${restartCounter}\nPings: ${pingCounter}`)
+    res.end(`Restarts: ${restartCounter}\nLast ping: ${lastPing}`)
 })
 
 server.listen(port, hostname, () => {

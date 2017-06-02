@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Jams-es/robotnik#readme",
   "dependencies": {
     "@slack/client": "^3.10.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "twitter": "^1.7.0"
   }
 }

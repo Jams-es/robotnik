@@ -1,4 +1,8 @@
 {
+    "Auth": {
+        "Username": "",
+        "Password": ""
+    },
     "Twitter": {
         "ConsumerKey": "",
         "ConsumerSecret": "",

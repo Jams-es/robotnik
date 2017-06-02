@@ -5,6 +5,9 @@ const logger = require('../internals/logger')
 
 const config = require('../internals/config')
 
+/**
+ * Provides functionality to interact with Twitter
+ */
 class TwitterService {
     constructor() {
         logger.setState({
@@ -22,6 +25,12 @@ class TwitterService {
         })
     }
 
+    /**
+     * Starts to listen all the user's activity, which includes twits, retweets, direct messages, etc.
+     * Check the Twitter Streaming API for more info (section statuses/filter)
+     * @param {string} userId - The userId to follow (not the username, the userId isn't the same thing).
+     * @param {function} callback  - This callback will be called with each new data received.
+     */
     listenUserActivity(userId, callback) {
 
         const retry = () => {

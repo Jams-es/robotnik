@@ -1,7 +1,7 @@
 {
     "Auth": {
-        "Username": "",
-        "Password": ""
+        "Secret": "",
+        "AllowedUsers": [""]
     },
     "Twitter": {
         "ConsumerKey": "",

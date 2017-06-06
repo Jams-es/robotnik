@@ -14,7 +14,8 @@
                     <a class="nav-item">
                         <h1 class="title is-4">Robotnik</h1>
                     </a>
-                    <a class="nav-item is-tab is-hidden-mobile {{#eq req.path '/'}}is-active{{/eq}}">Home</a>
+                    <a href="/" class="nav-item is-tab is-hidden-mobile {{#eq req.path '/'}}is-active{{/eq}}">Home</a>
+                    <a href="/plugins" class="nav-item is-tab is-hidden-mobile {{#eq req.path '/plugins'}}is-active{{/eq}}">Plugins</a>
                 </div>
                 <span class="nav-toggle">
                 <span></span>

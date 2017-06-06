@@ -3,7 +3,6 @@
 const express = require('express')
 const moment = require('moment')
 const logger = require('../../internals/logger')()
-const plugins = require('../../internals/plugins')
 
 const authMW = require('../middlewares/authMiddleware')
 
@@ -23,7 +22,7 @@ router.get('/', authMW.requireAuthentication, (req, res) => {
     var restartCounter = state.restartCounter
     var lastPing = moment(state.lastPing).format('YYYY-MM-DD HH:mm:ss')
 
-    res.render('home', { req, log, restartCounter, lastPing, plugins: plugins.list() });
+    res.render('home', { req, log, restartCounter, lastPing });
 })
 
 module.exports = router

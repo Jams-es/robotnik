@@ -1,40 +1,52 @@
-<p>Last ping: <b>{{lastPing}}</b></p>
+<h1 class="title is-1">Home</h1>
 
-<table class="table rbn-log">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Context</th>
-            <th>Message</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each log}}
-            <tr>
-                <td>{{ date }}</td>
-                <td>{{ context }}</td>
-                <td class="rbn-log-cell-multiline">
-                    <pre>{{ message }}</pre>
-                </td>
-            </tr>
-        {{/each}}
-    </tbody>
-</table>
-
-{{#each plugins}}
-    <div class="card">
-        <header class="card-header">
-            <p class="card-header-title">
-                {{ name }}
-            </p>
-        </header>
-        <div class="card-content">
-            <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                <a>@bulmaio</a>. <a>#css</a> <a>#responsive</a>
-                <br>
-                <small>11:09 PM - 1 Jan 2016</small>
+<div class="columns">
+    <div class="column is-one-third">
+        <div class="card rbn-margin-bottom">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Stats
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <p>Restart Counter: <b>{{restartCounter}}</b></p>
+                    <p>Last ping: <b>{{lastPing}}</b></p>
+                </div>
             </div>
         </div>
     </div>
-{{/each}}
+    <div class="column is-two-thirds">
+        <div class="card rbn-margin-bottom">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Log
+                </p>
+            </header>
+            <div class="card-content is-paddingless">
+                <div class="content">
+                    <table class="table rbn-log is-marginless">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Context</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each log}}
+                                <tr>
+                                    <td>{{ date }}</td>
+                                    <td>{{ context }}</td>
+                                    <td class="rbn-log-cell-multiline">
+                                        <pre>{{ message }}</pre>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

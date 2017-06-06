@@ -1,29 +1,23 @@
 'use strict'
 
 const Twitter = require('twitter')
-const logger = require('../internals/logger')
-
-const config = require('../internals/config')
 
 /**
  * Provides functionality to interact with Twitter
  */
-class TwitterService {
-    constructor() {
-        logger.setState({
-            restartCounter: 0,
-            lastPing: null
-        })
-    }
+function TwitterService(ctx) {
+    
+    ctx.logger.setState({
+        restartCounter: 0,
+        lastPing: null
+    })
 
-    _createClient() {
-        return new Twitter({
-            consumer_key: config.Twitter.ConsumerKey,
-            consumer_secret: config.Twitter.ConsumerSecret,
-            access_token_key: config.Twitter.AccessToken,
-            access_token_secret: config.Twitter.AccessTokenSecret
-        })
-    }
+    const _createClient = () => new Twitter({
+        consumer_key: ctx.config.Twitter.ConsumerKey,
+        consumer_secret: ctx.config.Twitter.ConsumerSecret,
+        access_token_key: ctx.config.Twitter.AccessToken,
+        access_token_secret: ctx.config.Twitter.AccessTokenSecret
+    })
 
     /**
      * Starts to listen all the user's activity, which includes twits, retweets, direct messages, etc.
@@ -31,20 +25,21 @@ class TwitterService {
      * @param {string} userId - The userId to follow (not the username, the userId isn't the same thing).
      * @param {function} callback  - This callback will be called with each new data received.
      */
-    listenUserActivity(userId, callback) {
+    function listenUserActivity(userId, callback) {
 
         const retry = () => {
-            logger.log('Restarting in 60s')
+            ctx.logger.log('Restarting in 60s')
             setTimeout(() => {
-                logger.setState({
-                    restartCounter: logger.getState().restartCounter + 1
+                ctx.logger.setState({
+                    restartCounter: ctx.logger.getState().restartCounter + 1
                 })
-                this.listenUserActivity(userId, callback)
+                listenUserActivity(userId, callback)
             }, 60000)
         }
 
-        var client = this._createClient()
-        logger.log('Listening ' + userId)
+        var client = _createClient()
+        ctx.logger.log('Listening ' + userId)
+
         client.stream('statuses/filter', { follow: userId }, (stream) => {
 
             stream.on('data', (data) => {
@@ -52,19 +47,21 @@ class TwitterService {
             })
 
             stream.on('error', (error) => {
-                logger.log(error.source ? error.source : error)
+                ctx.logger.log(error.source ? error.source : error)
             })
 
             stream.on('end', () => {
-                logger.log('Finished ' + userId)
+                ctx.logger.log('Finished ' + userId)
                 retry()
             })
 
             stream.on('ping', () => {
-                logger.setState({ lastPing: new Date() })
+                ctx.logger.setState({ lastPing: new Date() })
             })
         })
     }
+
+    return { listenUserActivity }
 }
 
-module.exports = () => new TwitterService()
+module.exports = TwitterService

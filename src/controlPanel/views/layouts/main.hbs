@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Robotnik</title>
+        <link rel="stylesheet" href="/static/bulma.css">
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+        
+        <nav class="nav has-shadow">
+            <div class="container">
+                <div class="nav-left">
+                    <a class="nav-item">
+                        <h1 class="title is-4">Robotnik</h1>
+                    </a>
+                    <a class="nav-item is-tab is-hidden-mobile {{#eq req.path '/'}}is-active{{/eq}}">Home</a>
+                </div>
+                <span class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+                </span>
+            </div>
+        </nav>
+
+        <div class="container rbn-padding">
+            {{{body}}}
+        </div>
+
+    </body>
+</html>

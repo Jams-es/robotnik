@@ -5,26 +5,27 @@ const _ = require('lodash')
 var logHistory = []
 var state = {}
 
-function log(message) {
-    if (message instanceof Error) {
-        logHistory.push({ message: message.stack, date: new Date() });
-    } else {
-        logHistory.push({ message, date: new Date() });
+module.exports = (contextId) => {
+    function log(message) {
+        logHistory.push({
+            message: message instanceof Error ? message.stack : message,
+            date: new Date(),
+            context: contextId
+        })
+        console.log(`[${contextId}] ${message}`)
     }
-    console.log(message)
-    
-}
 
-function setState(newState) {
-    state = _.assign(state, newState)
-}
+    function setState(newState) {
+        state = _.assign(state, newState)
+    }
 
-function getState() {
-    return state
-}
+    function getState() {
+        return state
+    }
 
-function getLogHistory() {
-    return logHistory
-}
+    function getLogHistory() {
+        return logHistory
+    }
 
-module.exports = { log, setState, getState, getLogHistory }
+    return { log, setState, getState, getLogHistory }
+}

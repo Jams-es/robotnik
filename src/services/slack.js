@@ -110,4 +110,4 @@ function SlackService () {
     return { sendMessage }
 }
 
-module.exports = () => SlackService()
+module.exports = SlackService

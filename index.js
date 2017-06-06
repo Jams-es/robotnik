@@ -1,9 +1,10 @@
 'use strict'
 
 const controlPanel = require('./src/controlPanel/index')
-const runPlugin = require('./src/internals/runPlugin')
+const plugins = require('./src/internals/plugins')
 const pixelDailiesPlugin = require('./src/plugins/pixelDailies')
 
-runPlugin(pixelDailiesPlugin)
+plugins.load()
+plugins.runAll()
 
 controlPanel()

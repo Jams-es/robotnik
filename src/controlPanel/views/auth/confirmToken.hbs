@@ -1,0 +1,13 @@
+<form method="post" action="/auth/confirm_token">
+    <input type="hidden" name="username" value="{{username}}" />
+
+    <h3 class="title is-3 has-text-centered">
+        You'll receive a token from robotnik, paste it here:
+    </h3>
+
+    <div class="field has-addons has-addons-centered is-large">
+        <p class="control">
+            <input class="input is-large" type="text" name="token" placeholder="The token">
+        </p>
+    </div>
+</form>

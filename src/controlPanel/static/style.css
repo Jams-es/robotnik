@@ -1,0 +1,16 @@
+.rbn-padding {
+    padding: 1rem .75rem;
+}
+
+.rbn-log td {
+    white-space: nowrap;
+}
+
+.rbn-log td.rbn-log-cell-multiline {
+    white-space: normal;
+    vertical-align: middle;
+}
+
+.rbn-log td pre {
+    background-color: transparent;
+}

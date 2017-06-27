@@ -1,6 +1,7 @@
 'use strict'
 
 const SlackClient = require('@slack/client')
+const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 
 const config = require('../internals/config')
 
@@ -8,8 +9,9 @@ const config = require('../internals/config')
  * Provides functionality to interact with the connected Slack.
  * @constructor
  */
-function SlackService () {
+function SlackService (ctx) {
     const _createWebClient = () => new SlackClient.WebClient(config.Slack.APIToken)
+    const _createRtmClient = () => new SlackClient.RtmClient(config.Slack.APIToken)
 
     /**
      * Get the user's ID given the Username
@@ -102,12 +104,22 @@ function SlackService () {
      * @memberof SlackService
      */
     function sendMessage(channel, message) {
+        ctx.logger.log(`Sending message to channel \`${channel}\``)
         return channel.indexOf('@') === 0
             ? _sendMessageToUser(channel, message)
             : _sendMessageToChannel(channel, message)
     }
 
-    return { sendMessage }
+    function listenMessages(callback) {
+        ctx.logger.log('Listening messages from Slack')
+        var rtm = _createRtmClient()
+        rtm.on('message', (data) => {
+            callback(data)
+        })
+        rtm.start()
+    }
+
+    return { sendMessage, listenMessages }
 }
 
 module.exports = SlackService

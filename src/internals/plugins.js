@@ -32,6 +32,7 @@ function runAll () {
 
 function load() {
     register(require('../plugins/pixelDailies'))
+    register(require('../plugins/autoreply'))
 }
 
 module.exports = { list, register, run, runAll, load }

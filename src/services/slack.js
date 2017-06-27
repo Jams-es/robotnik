@@ -13,6 +13,12 @@ function SlackService (ctx) {
     const _createWebClient = () => new SlackClient.WebClient(config.Slack.APIToken)
     const _createRtmClient = () => new SlackClient.RtmClient(config.Slack.APIToken)
 
+    const _log = (msg) => {
+        if (ctx) {
+            ctx.logger.log(msg)
+        }
+    }
+
     /**
      * Get the user's ID given the Username
      * @param {string} username - The username
@@ -104,14 +110,14 @@ function SlackService (ctx) {
      * @memberof SlackService
      */
     function sendMessage(channel, message) {
-        ctx.logger.log(`Sending message to channel \`${channel}\``)
+        _log(`Sending message to channel \`${channel}\``)
         return channel.indexOf('@') === 0
             ? _sendMessageToUser(channel, message)
             : _sendMessageToChannel(channel, message)
     }
 
     function listenMessages(callback) {
-        ctx.logger.log('Listening messages from Slack')
+        _log('Listening messages from Slack')
         var rtm = _createRtmClient()
         rtm.on('message', (data) => {
             callback(data)

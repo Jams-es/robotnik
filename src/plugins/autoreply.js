@@ -25,7 +25,9 @@ function slackRules(services, message) {
 
 function cantUnderstand(services, message) {
     services.slack.sendMessage(message.channel, 'Lo siento, no entiendo ese comando. Te dejo una lista de las cosas que puedes pedirme:');
-    help(services, message);
+    setTimeout(function() {
+        help(services, message);
+    }, 2000);
 }
 
 function help(services, message) {

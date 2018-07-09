@@ -10,6 +10,7 @@ function validateMessage(message) {
     if (message.channel.indexOf('C') === 0) return false;
     // It's a message from a bot? ignore
     if (message.bot_id) return false;
+    if (message.subtype === 'bot_message') return false;
 
     return true;
 }

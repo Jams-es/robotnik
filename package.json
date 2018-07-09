@@ -18,17 +18,17 @@
   },
   "homepage": "https://github.com/Jams-es/robotnik#readme",
   "dependencies": {
-    "@slack/client": "^3.10.0",
-    "body-parser": "^1.17.2",
+    "@slack/client": "~4.3.1",
+    "body-parser": "~1.18.3",
     "bulma": "^0.4.2",
-    "express": "^4.15.3",
-    "express-handlebars": "^3.0.0",
-    "express-session": "^1.15.3",
-    "handlebars-helpers": "^0.8.2",
-    "lodash": "^4.17.4",
-    "moment": "^2.18.1",
-    "randomstring": "^1.1.5",
-    "twitter": "^1.7.0"
+    "express": "~4.16.3",
+    "express-handlebars": "~3.0.0",
+    "express-session": "~1.15.6",
+    "handlebars-helpers": "~0.10.0",
+    "lodash": "~4.17.10",
+    "moment": "~2.22.2",
+    "randomstring": "~1.1.5",
+    "twitter": "~1.7.1"
   },
   "devDependencies": {
     "jsdoc": "^3.4.3"

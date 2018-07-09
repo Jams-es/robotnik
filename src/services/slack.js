@@ -11,7 +11,7 @@ const config = require('../internals/config')
  */
 function SlackService (ctx) {
     const _createWebClient = () => new SlackClient.WebClient(config.Slack.APIToken)
-    const _createRtmClient = () => new SlackClient.RtmClient(config.Slack.APIToken)
+    const _createRtmClient = () => new SlackClient.RTMClient(config.Slack.APIToken)
 
     const _log = (msg) => {
         if (ctx) {
@@ -29,7 +29,7 @@ function SlackService (ctx) {
         var username = _username.replace('@', '')
         return new Promise((resolve, reject) => {
             var web = _createWebClient()
-            web.users.list((err, res) => {
+            web.users.list({}, (err, res) => {
                 if (err || !res.ok) return reject(err || new Error('Couldnt get user list'))
                 var found = null
                 res.members.forEach((user) => {
@@ -55,7 +55,7 @@ function SlackService (ctx) {
     function _getUserDirectMessageChannel(userId) {
         return new Promise((resolve, reject) => {
             var web = _createWebClient()
-            web.im.list((err, res) => {
+            web.im.list({}, (err, res) => {
                 if (err || !res.ok) return reject(err || new Error('Couldnt get im list'))
                 var found = null
                 res.ims.forEach((channel) => {
@@ -82,7 +82,7 @@ function SlackService (ctx) {
     function _sendMessageToChannel(channel, message) {
         return new Promise((resolve, reject) => {
             var web = _createWebClient()
-            web.chat.postMessage(channel, message, { as_user: true },(err, res) => {
+            web.chat.postMessage({ channel, text: message, as_user: true }, (err, res) => {
                 if (err) return reject(err)
                 resolve()
             })

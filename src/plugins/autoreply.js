@@ -15,24 +15,33 @@ function validateMessage(message) {
     return true;
 }
 
-function slackRules(services, message) {
-    fs.readFile('./assets/rules.md', 'utf8', function (err, data) {
-        if (err) {
-            return console.log(err);
-        }
-        services.slack.sendMessage(message.channel, data)
+function readFile(path) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path, 'utf8', function (err, data) {
+            if (err) {
+                reject(err);
+            }
+            resolve(data);
+        });
     });
 }
 
-function cantUnderstand(services, message) {
-    services.slack.sendMessage(message.channel, 'Lo siento, no entiendo ese comando. Te dejo una lista de las cosas que puedes pedirme:');
-    setTimeout(function() {
-        help(services, message);
-    }, 2000);
+const getSlackRules = () => readFile('./assets/rules.md')
+const getHelp = () => readFile('./assets/help.md')
+
+function slackRules(services, message) {
+    getSlackRules()
+        .then((data) => {
+            services.slack.sendMessage(message.channel, data)
+        }, console.log)
 }
 
-function help(services, message) {
-    services.slack.sendMessage(message.channel, '`reglas slack` -> Las reglas de este slack');
+function cantUnderstand(services, message) {
+    getHelp()
+        .then((data) => {
+            var text = `Lo siento, no entiendo ese comando. Te dejo una lista de las cosas que puedes pedirme:\n\n${data}`
+            services.slack.sendMessage(message.channel, text);
+        }, console.log);
 }
 
 const autoreplyPlugin = {
